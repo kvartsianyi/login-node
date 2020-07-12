@@ -49,7 +49,7 @@ module.exports = {
 
             await authService.deleteTokenByParams({accessToken});
 
-            res.sendStatus(OK);
+            res.status(OK).json();
         } catch (e) {
             next(e);
         }

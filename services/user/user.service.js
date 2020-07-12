@@ -13,7 +13,7 @@ class UserService {
     getUserByPk(userId) {
         const UserModel = db.getModel(USER);
 
-        return UserModel.findByPk(userId);
+        return UserModel.findByPk(userId, {attributes: ['id', 'login', 'email']});
     }
 
     async createUser(user) {

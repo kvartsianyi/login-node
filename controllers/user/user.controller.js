@@ -1,6 +1,6 @@
 const {httpStatusCodeEnum: {CREATED}} = require('../../constants');
 const {hashHelper: {hashPassword}} = require('../../helpers');
-const {userService: {createUser}} = require('../../services');
+const {userService: {createUser, getUserByPk}} = require('../../services');
 
 module.exports = {
     createUser: async (req, res, next) => {
@@ -11,7 +11,18 @@ module.exports = {
 
             await createUser(user);
 
-            res.sendStatus(CREATED);
+            res.status(CREATED).json();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getUser: async (req, res, next) => {
+        try {
+            const userId = req.userId;
+            const user = await getUserByPk(userId);
+
+            res.json(user);
         } catch (e) {
             next(e);
         }
